@@ -8,34 +8,39 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
         integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
     <script src="./main.js" defer></script>
 </head>
 
 <body>
 
-    <div class="contenedor">
-        <div class="cabecera">
-            <h2>Lista de tareas</h2>
-        </div>
-        <form id="form-crear" class="formulario">
-            <div class="form-control">
-                <input type="text" id="crear" class="form-control" placeholder="Nombre de la tarea">
-                <button><i class="fa-solid fa-plus"></i></button>
+    <div class="container">
+        <div class="contenedor">
+            <div class="cabecera">
+                <h2>Lista de tareas</h2>
             </div>
-        </form>
-    </div>
+            <form id="form-crear" class="formulario">
+                <div class="form-control">
+                    <input type="text" id="crear" class="form-control" placeholder="Nombre de la tarea">
+                    <button><i class="fa-solid fa-plus"></i></button>
+                </div>
+            </form>
+        </div>
 
-    <section>
-        <form action="">
-            <input type="text" id="buscar" placeholder="Buscar...">
-        </form>
-        <ul id="lista-tareas" class="list-group">
-            <li><strong>Cocinar</strong><i class="fa-solid fa-circle-minus borrar"></i></li>
-            <li><strong>Lavar ropa</strong><i class="fa-solid fa-circle-minus borrar"></i></li>
-            <li><strong>Salir a correr</strong><i class="fa-solid fa-circle-minus borrar"></i></li>
-        </ul>
-    </section>
+        <section>
+            <form action="">
+                <input type="text" id="buscar" placeholder="Buscar...">
+            </form>
+            <ul id="lista-tareas" class="list-group">
+
+            </ul>
+        </section>
+    </div>
 
 </body>
 
