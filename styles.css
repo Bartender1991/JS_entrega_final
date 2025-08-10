@@ -207,3 +207,12 @@ body.dark-mode .modal-footer {
         width: 20%;
     }
 }
+@media(min-width:100px) {
+    .main-grid {
+        grid-template-columns: 1fr
+    }
+
+    .col-md-4 {
+        width: 50%;
+    }
+}
