@@ -198,8 +198,12 @@ body.dark-mode .modal-footer {
     padding-left: 0.5%;
 }
 
-@media(min-width:800px) {
+@media(min-width:768px) {
     .main-grid {
         grid-template-columns: 1fr
+    }
+
+    .col-md-4 {
+        width: 20%;
     }
 }
