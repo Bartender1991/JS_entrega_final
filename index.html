@@ -1,46 +1,156 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de tareas</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
-        integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-        crossorigin="anonymous"></script>
-    <script src="./main.js" defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Proyecto Final || Pascualetti Omar || Simulador Ecommerce || Coder House</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <link href="
+    https://cdn.jsdelivr.net/npm/sweetalert2@11.22.3/dist/sweetalert2.min.css
+    " rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.3/dist/sweetalert2.all.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
 </head>
 
-<body>
-
-    <div class="container">
-        <div class="contenedor">
-            <div class="cabecera">
-                <h2>Lista de tareas</h2>
-            </div>
-            <form id="form-crear" class="formulario">
-                <div class="form-control">
-                    <input type="text" id="crear" class="form-control" placeholder="Nombre de la tarea">
-                    <button><i class="fa-solid fa-plus"></i></button>
-                </div>
-            </form>
-        </div>
-
-        <section>
-            <form action="">
-                <input type="text" id="buscar" placeholder="Buscar...">
-            </form>
-            <ul id="lista-tareas" class="list-group">
-
-            </ul>
-        </section>
+<body class="bg-light">
+  <header class="bg-primary text-white py-3 mb-4 shadow-sm">
+    <div class="container d-flex justify-content-between align-items-center">
+      <h1 class="h3 mb-0">Simulador Ecommerce</h1>
+      <div>
+        <button id="toggle-dark" class="btn btn-outline-light me-2" title="Modo oscuro">
+          <i class="bi bi-moon"></i>
+        </button>
+        <button id="open-history" class="btn btn-outline-light me-2" title="Historial de compras">
+          <i class="bi bi-clock-history"></i>
+        </button>
+        <button id="open-cart" class="btn btn-light position-relative" aria-label="Abrir carrito">
+          <i class="bi bi-cart4"></i>
+          Carrito
+          <span id="cart-count"
+            class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">0</span>
+        </button>
+      </div>
     </div>
+  </header>
+
+  <main class="container">
+    <section class="controls mb-4">
+      <div class="row g-2 align-items-center">
+        <div class="col-md-5">
+          <input id="search" class="form-control" placeholder="Buscar producto..." />
+        </div>
+        <div class="col-md-3">
+          <select id="categoryFilter" class="form-select">
+            <option value="all">Todas las categorías</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button id="clearFilters" class="btn btn-outline-secondary w-100">Limpiar filtros</button>
+        </div>
+      </div>
+    </section>
+    <section id="products" class="row gy-4 products-grid" aria-live="polite"></section>
+  </main>
+
+  <div class="modal fade" id="cart-modal" tabindex="-1" aria-labelledby="cartModalLabel">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="cartModalLabel">Tu carrito</h2>
+          <button type="button" class="btn-close" id="close-cart" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div id="cart-items"></div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between align-items-center">
+          <div>
+            <span class="fw-bold">Total:</span>
+            <strong id="cart-total">$0.00</strong>
+          </div>
+          <div>
+            <button id="clear-cart" class="btn btn-outline-danger me-2">Vaciar carrito</button>
+            <button id="checkout" class="btn btn-success">Proceder a pagar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="checkout-modal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="checkoutModalLabel">Checkout (simulado)</h2>
+          <button type="button" class="btn-close" id="close-checkout" data-bs-dismiss="modal"
+            aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="checkout-form">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre completo</label>
+              <input id="name" name="name" class="form-control" required value="Omar" />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input id="email" name="email" type="email" class="form-control" required value="ejemplo@mail.com" />
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Dirección</label>
+              <input id="address" name="address" class="form-control" required value="Calle Falsa 123" />
+            </div>
+            <div class="mb-3">
+              <label for="payment" class="form-label">Método de pago</label>
+              <select id="payment" name="payment" class="form-select">
+                <option value="tarjeta">Tarjeta</option>
+                <option value="transferencia">Transferencia</option>
+                <option value="mercadopago">MercadoPago (simulado)</option>
+              </select>
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="button" id="cancel-checkout" class="btn btn-outline-secondary">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Confirmar compra (simulada)</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="history-modal" tabindex="-1" aria-labelledby="historyModalLabel">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="historyModalLabel">Historial de compras</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body" id="history-content">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast align-items-center text-bg-primary border-0 position-fixed bottom-0 end-0 m-4"
+    role="alert" aria-live="polite" aria-atomic="true" style="z-index: 9999;">
+    <div class="d-flex">
+      <div class="toast-body"></div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+        aria-label="Cerrar"></button>
+    </div>
+  </div>
+
+
 
 </body>
 
